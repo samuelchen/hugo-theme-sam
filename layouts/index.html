@@ -3,29 +3,69 @@
     <head>
         {{ partial "head.html" . }}
         <title>{{ .Title }}</title>
+        <style>
+            .col-container {
+                display: flex;
+                width: 60%;
+                min-width: 520px;
+            }
+            #splash {
+                margin-right: 20px;
+            }
+            @media screen and (max-width: 520px) {
+                .col-container {
+                    min-width: 0px;
+                    width: 90%;
+                }
+                .col-left {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                .col-right {
+                    margin-left: 8px;
+                    margin-right: 2px;
+                }
+                .big-link {
+                    font-size: 1.6rem;
+                }
+                #splash {
+                    margin: 2px;
+                }
+            }
+        </style>
     </head>
     <body>
-        <div class="section" id="splash">
+        <div class="col-container">
 
-            {{ if .Site.Params.mainMenu }}
-                {{ range .Site.Params.mainMenu }}
-                    <div class="big-link">
-                        <a href="{{.link}}">
-                            {{.text}}
-                        </a>
-                    </div>
-                {{ end }}
+            <div class="section col-left" id="splash">
 
-            {{ else }}
-                {{ range .Site.Sections }}
-                    <div class="big-link"> 
-                        <a href="{{.Permalink}}">
-                            {{.Title}}
-                        </a>
-                    </div>
+                {{ if .Site.Menus.main }}
+                    {{ range .Site.Menus.main }}
+                        <div class="big-link">
+                            <a href="{{.URL}}">
+                                {{.Name}}
+                            </a>
+                        </div>
+                    {{ end }}
+
+                {{ else }}
+                    {{ range .Site.Sections }}
+                        <div class="big-link"> 
+                            <a href="{{.Permalink}}">
+                                {{.Title}}
+                            </a>
+                        </div>
+                    {{ end }}
                 {{ end }}
+                
+            </div>
+
+            {{ if .Content }}
+            <div class="section col-right" >
+                {{ .Content }}
+            </div>
             {{ end }}
-            
+
         </div>
     </body>
 </html>
