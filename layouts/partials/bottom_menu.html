@@ -27,7 +27,7 @@
     {{ end }}
     &#183; 
     <a href="{{.Page.Site.BaseURL}}">
-        {{ .Page.Site.Params.homepage }}home
+        {{ .Page.Site.Params.homepage }} {{ if eq .Lang "en"}}home{{ else }}首页{{ end }}
     </a>
 {{ end }}
 </p>
